@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "lab1",
-            "program": "bin/lab1.dart",
+            "name": "main",
+            "program": "bin/main.dart",
             "request": "launch",
             "type": "dart",
             "console": "terminal",

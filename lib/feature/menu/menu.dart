@@ -1,6 +1,8 @@
 library menu;
 
-import 'package:lab1/core/console/extended_console.dart';
+import 'package:console/console.dart';
+import 'package:lab1/core/console/console.dart';
+import 'package:lab1/core/elements/showable.dart';
 
 import 'config.dart';
 import 'item.dart';
@@ -10,7 +12,7 @@ export 'item.dart';
 
 typedef ItemSelected = void Function(MenuItem item);
 
-class Menu {
+class Menu extends Showable<MenuItem> {
   final MenuConfig config;
   final List<MenuItem> items;
   final ItemSelected? onSelect;
@@ -21,8 +23,7 @@ class Menu {
     this.onSelect,
   });
 
-  final _console = ExtendedConsole();
-
+  @override
   MenuItem? show() {
     _clear();
 
@@ -30,13 +31,9 @@ class Menu {
     for (int i = 0; i < items.length; i++) {
       buffer += '${i + 1}. ${items[i].label}\n';
     }
-    _console.write(buffer);
+    Console.write(buffer);
 
-    final res = _console.readInt(
-      placeHolder: '${config.requestString} ',
-      cancelOnEscape: true,
-      cancelOnEOF: true,
-    );
+    final res = ExtendedConsole.readInt('${config.requestString} ');
 
     _clear();
     if (res != null) {
@@ -55,7 +52,7 @@ class Menu {
 
   void _clear() {
     if (config.clearMenu) {
-      _console.clearScreen();
+      ExtendedConsole.clearDisplay();
     }
   }
 }
