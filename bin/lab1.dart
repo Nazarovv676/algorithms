@@ -46,17 +46,26 @@ List<Person> _addPerson(List<Person> people) {
 }
 
 void _showAllPeople(List<Person> people) {
-  DataTable<Person>(
-    columnsCount: 7,
-    data: people,
-    converter: (data) => [
-      data.name,
-      data.surname,
-      data.address.country,
-      data.address.city,
-      data.address.street,
-      data.address.house,
-      data.telNum,
+  DataTable(
+    columns: [
+      DataColumn(label: 'Name'),
+      DataColumn(label: 'Surname'),
+      DataColumn(label: 'Country'),
+      DataColumn(label: 'City'),
+      DataColumn(label: 'Street'),
+      DataColumn(label: 'House'),
+      DataColumn(label: 'Telephone number', length: 20),
+    ],
+    rows: [
+      ...people.map((e) => DataRow([
+            DataCell(e.name),
+            DataCell(e.surname),
+            DataCell(e.address.country),
+            DataCell(e.address.city),
+            DataCell(e.address.street),
+            DataCell(e.address.house),
+            DataCell(e.telNum),
+          ]))
     ],
   ).show();
   ExtendedConsole.readKey();
