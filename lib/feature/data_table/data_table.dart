@@ -1,4 +1,3 @@
-import 'package:console/console.dart';
 import 'package:lab1/core/elements/showable.dart';
 
 const _columnDivider = '|';
@@ -29,7 +28,7 @@ class DataTable extends Showable<void> {
       columns.map((e) => e.length).reduce((value, element) => value + element) +
           columns.length +
           1,
-      '-',
+      _rowDivider,
     ).join('');
   }
 
