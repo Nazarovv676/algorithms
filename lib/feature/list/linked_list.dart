@@ -1,10 +1,13 @@
 library linked_list;
 
 part 'singly_linked_list.dart';
+part 'doubly_linked_list.dart';
 part 'node.dart';
 
 abstract class LinkedList<T> {
   factory LinkedList() = _SinglyLinkedList<T>;
+
+  factory LinkedList.doubly() = _DoublyLinkedList<T>;
 
   T get first;
   T get last;

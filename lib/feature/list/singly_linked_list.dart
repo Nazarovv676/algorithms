@@ -1,7 +1,15 @@
 part of linked_list;
 
+class _SinglyNode<T> extends _ListNode<T> {
+  @override
+  final T data;
+  _SinglyNode<T>? next;
+
+  _SinglyNode(this.data);
+}
+
 class _SinglyLinkedList<T> implements LinkedList<T> {
-  _ListNode<T>? _first;
+  _SinglyNode<T>? _first;
 
   @override
   bool get isEmpty => _first == null;
@@ -20,8 +28,8 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   @override
   int get length {
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = _first?.next;
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = _first?.next;
     int iterator = 0;
     if (prev != null) {
       iterator = 1;
@@ -39,7 +47,7 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   @override
   void add(T value) {
-    final newNode = _ListNode(value);
+    final newNode = _SinglyNode(value);
     if (isEmpty) {
       _first = newNode;
     } else {
@@ -50,7 +58,7 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
   @override
   void addAfter(int index, T value) {
     final prev = _findByIndex(index);
-    final newNode = _ListNode(value);
+    final newNode = _SinglyNode(value);
     final next = prev.next;
     newNode.next = next;
     prev.next = newNode;
@@ -67,7 +75,7 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   @override
   void addToStart(T value) {
-    final newNode = _ListNode(value);
+    final newNode = _SinglyNode(value);
     newNode.next = _first;
     _first = newNode;
   }
@@ -79,8 +87,8 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   @override
   LinkedList<T> copy() {
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = prev?.next;
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = prev?.next;
     final newList = _SinglyLinkedList<T>();
     if (prev != null) {
       newList.add(prev.data);
@@ -105,9 +113,9 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   void _deleteWhere(bool Function(T value) callback,
       [bool breakOnFirst = false]) {
-    _ListNode<T>? prevPrev;
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = prev?.next;
+    _SinglyNode<T>? prevPrev;
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = prev?.next;
     while (prev != null) {
       if (callback.call(prev.data)) {
         _deleteNextNode(prevPrev);
@@ -126,10 +134,10 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
     if (length != other.length) {
       return false;
     }
-    _ListNode<T>? oPrev = other._first;
-    _ListNode<T>? oNext = oPrev?.next;
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = prev?.next;
+    _SinglyNode<T>? oPrev = other._first;
+    _SinglyNode<T>? oNext = oPrev?.next;
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = prev?.next;
     while (prev != null && oPrev != null) {
       if (prev.data != oPrev.data) {
         return false;
@@ -156,11 +164,11 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
 
   @override
   bool contains(T value) {
-    _ListNode<T>? prev = _first;
+    _SinglyNode<T>? prev = _first;
     if (prev?.data == value) {
       return true;
     }
-    _ListNode<T>? next = _first?.next;
+    _SinglyNode<T>? next = _first?.next;
     while (next != null) {
       prev = next;
       next = next.next;
@@ -172,8 +180,8 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
   }
 
   int? _indexOfFirst(T value) {
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = _first?.next;
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = _first?.next;
     int iterator = 0;
     while (prev != null) {
       if (prev.data == value) {
@@ -191,7 +199,7 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
     }
   }
 
-  void _deleteNextNode(_ListNode<T>? node) {
+  void _deleteNextNode(_SinglyNode<T>? node) {
     if (node == null) {
       _first = _first?.next;
     } else {
@@ -199,9 +207,9 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
     }
   }
 
-  _ListNode<T>? _findLast() {
-    _ListNode<T>? prev = _first;
-    _ListNode<T>? next = prev?.next;
+  _SinglyNode<T>? _findLast() {
+    _SinglyNode<T>? prev = _first;
+    _SinglyNode<T>? next = prev?.next;
     while (next != null) {
       prev = next;
       next = next.next;
@@ -210,12 +218,12 @@ class _SinglyLinkedList<T> implements LinkedList<T> {
   }
 
   // Checks [isEmpty]
-  _ListNode<T> _findByIndex(int index) {
+  _SinglyNode<T> _findByIndex(int index) {
     _maybeThrowEmptyState();
     RangeError.checkNotNegative(index);
 
-    _ListNode<T> prev = _first!;
-    _ListNode<T>? next = _first?.next;
+    _SinglyNode<T> prev = _first!;
+    _SinglyNode<T>? next = _first?.next;
     int iterator = 0;
     while (next != null && iterator != index) {
       prev = next;
