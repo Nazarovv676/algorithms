@@ -7,9 +7,11 @@ part 'circular_linked_list.dart';
 part 'node.dart';
 
 abstract class LinkedList<T> {
-  factory LinkedList() = _SinglyLinkedList<T>;
+  factory LinkedList() = SinglyLinkedList<T>;
 
-  factory LinkedList.circular() = _CircularLinkedList<T>;
+  factory LinkedList.circular() = CircularLinkedList<T>;
+
+  ListNode<T>? get firstNode;
 
   T get first;
   T get last;

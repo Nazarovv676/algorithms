@@ -1,5 +1,5 @@
 part of linked_list;
 
-abstract class _ListNode<T> {
+abstract class ListNode<T> {
   T get data;
 }

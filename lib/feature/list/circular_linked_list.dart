@@ -1,11 +1,11 @@
 part of linked_list;
 
-class _CircularNode<T> extends _ListNode<T> {
+class CircularNode<T> extends ListNode<T> {
   @override
   final T data;
-  late _CircularNode<T> next;
+  late CircularNode<T> next;
 
-  _CircularNode(this.data);
+  CircularNode(this.data);
 
   @override
   String toString() {
@@ -13,8 +13,11 @@ class _CircularNode<T> extends _ListNode<T> {
   }
 }
 
-class _CircularLinkedList<T> implements LinkedList<T> {
-  _CircularNode<T>? _first;
+class CircularLinkedList<T> implements LinkedList<T> {
+  CircularNode<T>? _first;
+
+  @override
+  ListNode<T>? get firstNode => _first;
 
   @override
   bool get isEmpty => _first == null;
@@ -33,8 +36,8 @@ class _CircularLinkedList<T> implements LinkedList<T> {
 
   @override
   int get length {
-    _CircularNode<T>? prev = _first;
-    _CircularNode<T>? next = _first?.next;
+    CircularNode<T>? prev = _first;
+    CircularNode<T>? next = _first?.next;
     int iterator = 0;
     if (prev != null) {
       iterator++;
@@ -52,7 +55,7 @@ class _CircularLinkedList<T> implements LinkedList<T> {
 
   @override
   void add(T value) {
-    final newNode = _CircularNode(value);
+    final newNode = CircularNode(value);
     if (isEmpty) {
       _first = newNode;
     } else {
@@ -64,14 +67,14 @@ class _CircularLinkedList<T> implements LinkedList<T> {
   @override
   void addAfter(int index, T value) {
     final prev = _findByIndex(index);
-    final newNode = _CircularNode(value);
+    final newNode = CircularNode(value);
     final next = prev.next;
     newNode.next = next;
     prev.next = newNode;
   }
 
   @override
-  void addAll(covariant _CircularLinkedList<T> values) {
+  void addAll(covariant CircularLinkedList<T> values) {
     if (isEmpty) {
       _first = values._first;
       return;
@@ -82,7 +85,7 @@ class _CircularLinkedList<T> implements LinkedList<T> {
 
   @override
   void addToStart(T value) {
-    final newNode = _CircularNode(value);
+    final newNode = CircularNode(value);
     newNode.next = _first ?? newNode;
     _findLast()?.next = newNode;
     _first = newNode;
@@ -95,9 +98,9 @@ class _CircularLinkedList<T> implements LinkedList<T> {
 
   @override
   LinkedList<T> copy() {
-    _CircularNode<T>? prev = _first;
-    _CircularNode<T>? next = prev?.next;
-    final newList = _CircularLinkedList<T>();
+    CircularNode<T>? prev = _first;
+    CircularNode<T>? next = prev?.next;
+    final newList = CircularLinkedList<T>();
     if (prev == null) {
       return newList;
     }
@@ -135,14 +138,14 @@ class _CircularLinkedList<T> implements LinkedList<T> {
   }
 
   @override
-  bool equals(covariant _CircularLinkedList<T> other) {
+  bool equals(covariant CircularLinkedList<T> other) {
     if (length != other.length) {
       return false;
     }
-    _CircularNode<T>? oPrev = other._first;
-    _CircularNode<T>? oNext = oPrev?.next;
-    _CircularNode<T>? prev = _first;
-    _CircularNode<T>? next = prev?.next;
+    CircularNode<T>? oPrev = other._first;
+    CircularNode<T>? oNext = oPrev?.next;
+    CircularNode<T>? prev = _first;
+    CircularNode<T>? next = prev?.next;
     if (prev == null && oPrev == null) {
       return true;
     }
@@ -172,8 +175,8 @@ class _CircularLinkedList<T> implements LinkedList<T> {
 
   @override
   bool contains(T value) {
-    _CircularNode<T>? prev = _first;
-    _CircularNode<T>? next = _first?.next;
+    CircularNode<T>? prev = _first;
+    CircularNode<T>? next = _first?.next;
     while (prev != _first && prev != null) {
       if (prev.data == value) {
         return true;
@@ -190,7 +193,7 @@ class _CircularLinkedList<T> implements LinkedList<T> {
     }
   }
 
-  void _deleteNextNode(_CircularNode<T>? node) {
+  void _deleteNextNode(CircularNode<T>? node) {
     if (!isEmpty) {
       if (node == null) {
         _findLast()?.next = _first!.next;
@@ -201,9 +204,9 @@ class _CircularLinkedList<T> implements LinkedList<T> {
     }
   }
 
-  _CircularNode<T>? _findLast() {
-    _CircularNode<T>? prev = _first;
-    _CircularNode<T>? next = prev?.next;
+  CircularNode<T>? _findLast() {
+    CircularNode<T>? prev = _first;
+    CircularNode<T>? next = prev?.next;
     while (next != _first && next != null) {
       prev = next;
       next = next.next;
@@ -212,12 +215,12 @@ class _CircularLinkedList<T> implements LinkedList<T> {
   }
 
   // Checks [isEmpty]
-  _CircularNode<T> _findByIndex(int index) {
+  CircularNode<T> _findByIndex(int index) {
     _maybeThrowEmptyState();
     RangeError.checkNotNegative(index);
 
-    _CircularNode<T> prev = _first!;
-    _CircularNode<T>? next = _first?.next;
+    CircularNode<T> prev = _first!;
+    CircularNode<T>? next = _first?.next;
     int iterator = 0;
     while (next != _first && next != null && iterator != index) {
       prev = next;
