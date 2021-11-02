@@ -43,7 +43,7 @@ class Menu extends Showable<MenuItem> {
       final selected = items[res - 1];
       onSelect?.call(selected);
       selected.onSelect?.call();
-      if (selected.onSelect != null && selected.reshowAfterCallback) {
+      if (selected.onSelect != null) {
         return show();
       }
       return selected;

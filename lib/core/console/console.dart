@@ -11,13 +11,14 @@ class ExtendedConsole extends Console {
   ]) {
     int? res;
     do {
+      final placeHolderLinesCount = (placeHolder ?? '').split(r'\n').length;
       if (res != null && errorMessage != null) {
-        Console.write(errorMessage);
-        ExtendedConsole.readKey();
-        clearLastLines();
+        Console.write('$errorMessage\n');
+        ExtendedConsole.awaitEnterClick();
+        clearLastLines(placeHolderLinesCount + 1);
       }
       if (res != null) {
-        clearLastLines();
+        clearLastLines(placeHolderLinesCount);
       }
       res = readInt(placeHolder);
       if (res == null) {
@@ -49,11 +50,16 @@ class ExtendedConsole extends Console {
     return res;
   }
 
+  @Deprecated('Error in library "lineMode"')
   static int readKey() {
     stdin.lineMode = false;
     final res = stdin.readByteSync();
     stdin.lineMode = true;
     return res;
+  }
+
+  static void awaitEnterClick() {
+    ExtendedConsole.readLineWithPlaceHolder('Click "Enter"...');
   }
 
   static void clearDisplay() {
