@@ -31,13 +31,13 @@ void lab2(List<String> arguments) async {
                   label: 'Participants',
                   onSelect: () {
                     _showParticipants(participants);
-                    ExtendedConsole.readLineWithPlaceHolder('Click "Enter"...');
+                    ExtendedConsole.awaitEnterClick();
                   }),
               MenuItem(
                   label: 'Prizes',
                   onSelect: () {
                     _showPrizes(prizes);
-                    ExtendedConsole.readLineWithPlaceHolder('Click "Enter"...');
+                    ExtendedConsole.awaitEnterClick();
                   }),
               MenuItem.back(),
             ],
@@ -98,7 +98,7 @@ void _showPrizes(LinkedList<String> prizes) {
 void _spinWheel(LinkedList<String> participants, LinkedList<String> prizes) {
   if (participants.isEmpty || prizes.isEmpty) {
     print('Prizes or participants must not be empty');
-    ExtendedConsole.readLineWithPlaceHolder('Click "Enter"...');
+    ExtendedConsole.awaitEnterClick();
     return;
   }
 
@@ -147,7 +147,7 @@ void _spinWheel(LinkedList<String> participants, LinkedList<String> prizes) {
     print(key);
     print(value);
   });
-  ExtendedConsole.readLineWithPlaceHolder('Click "Enter"...');
+  ExtendedConsole.awaitEnterClick();
 }
 
 ListNode<String> _getListNodeByOffsetFrom(
